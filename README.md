@@ -73,3 +73,8 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+# public
+  ใช้เก็บรูปภาพที่สามารถเข้าถึงได้จาก path ex   ./public/xxxx.jpg 
+# assets
+  ใช้เก็บ css รูปภาพ ไม่สามารถเข้าถึงจากภายนอกได้ ex ~/assets/xxxx.jpg
