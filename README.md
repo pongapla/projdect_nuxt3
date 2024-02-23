@@ -78,3 +78,15 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
   ใช้เก็บรูปภาพที่สามารถเข้าถึงได้จาก path ex   ./public/xxxx.jpg 
 # assets
   ใช้เก็บ css รูปภาพ ไม่สามารถเข้าถึงจากภายนอกได้ ex ~/assets/xxxx.jpg
+# router
+  การใช้ router มีสองวิธี คือ 
+   - const router = userRouter();
+     router.push('path ที่ต้องการ')
+     แบบที่ 2
+     router.push({
+      path: 'path ที่ต้องการ',
+      query: {
+        color: 'red',
+        brand: 'A'
+      }
+     })
