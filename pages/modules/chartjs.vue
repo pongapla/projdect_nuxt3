@@ -1,9 +1,13 @@
 <template>
     <div>
-        <p>footer</p>
+        <h1>Chartjs "{ Line Chart}" </h1>
+        
     </div>
 </template>
+
 <script setup lang="ts">
 </script>
-<style>
+
+<style scoped>
+
 </style>

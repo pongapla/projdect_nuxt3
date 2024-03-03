@@ -1,9 +1,15 @@
 <template>
     <div>
-        <p>footer</p>
+        
+        
     </div>
 </template>
+
 <script setup lang="ts">
+ 
+ 
 </script>
-<style>
+
+<style lang="scss" scoped>
+
 </style>

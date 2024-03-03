@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>footer</p>
+        <h1 class="text-red-400">hello</h1>
     </div>
 </template>
 <script setup lang="ts">
