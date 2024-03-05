@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
+    "bcryptjs": "^2.4.3",
     "chart.js": "^4.4.2",
     "datejs": "^1.0.0-rc3",
     "nuxt": "^3.10.2",
     "pinia": "^2.1.7",
+    "sequelize": "^6.37.1",
+    "sqlite3": "^5.1.7",
     "vue": "^3.4.19",
     "vue-router": "^4.2.5"
   },
