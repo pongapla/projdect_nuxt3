@@ -8,6 +8,7 @@
     </div>
 </template>
 <script setup lang="ts">
+import { PropType } from "vue";
 import { type TAuthor } from "../types/author.type";
 const props = defineProps({
     author: {

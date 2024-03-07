@@ -7,11 +7,9 @@
 </template>
 <script setup lang="ts">
 import { reactive } from 'vue';
-import MycomponentTwo from '../../components/mycomponentTwo.vue';
 import { type TAuthor } from '../../types/author.type';
-definePageMeta({
-    layout: 'product'
-})
+import {} from '../../components/mycomponentTwo.vue';
+
 const author = reactive<TAuthor>({ 
     fristName: 'pong',
     lastName: 'apla',
@@ -19,4 +17,5 @@ const author = reactive<TAuthor>({
     date: new Date(),
     })
 </script>
+
 <style scoped></style>
