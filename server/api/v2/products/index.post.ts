@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     const formData = await readMultipartFormData(event);
     const file = formData?.find((item) => item.name === "file");
     const bodyRaw = formData?.find((item) => item.name === "body");
-
+   
     if (!bodyRaw) return { result: kResultNok, data: "body is required" };
 
     const body = bodyRaw ? JSON.parse(bodyRaw?.data.toString()) : null;

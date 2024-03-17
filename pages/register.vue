@@ -115,6 +115,7 @@ const onSubmit = () => {
     validate()
         .then(async () => {
             // await authStore.register(toRaw(modelRef));
+            console.log(">>>>" + modelRef.username + "-" + modelRef.password);
             api.register(
                 {
                     usernam: modelRef.username,

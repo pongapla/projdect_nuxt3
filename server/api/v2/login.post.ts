@@ -5,6 +5,7 @@ import { kResultOk } from "@/server/constants";
 
 export default defineEventHandler(async (event) => {
     const body = await readBody<LoginDto>(event);
+    console.log(body);
     const userData = await user.findOne({
         where: {
             username: body.username,
@@ -29,7 +30,7 @@ export default defineEventHandler(async (event) => {
             message: "Invalid email or password",
         });
     }
-
+    
     return {
         result: kResultOk,
         data: {

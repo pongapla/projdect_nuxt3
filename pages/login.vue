@@ -92,7 +92,8 @@ import { useAuthStore } from "../stores/auth.store";
 definePageMeta({
     layout: "authen",
 });
-
+const labelCol = { span: 0 };
+const wrapperCol = { span: 24 };
 const useStore = useAuthStore()
 const useForm = Form.useForm;
 //const authStore = useAuth();
@@ -120,7 +121,7 @@ const { resetFields, validate, validateInfos } = useForm(modelRef, rulesRef, {
 const onSubmit = () => {
     validate()
         .then(async () => {
-            //await authStore.login(toRaw(modelRef));
+            await authStore.login(toRaw(modelRef));
         })
         .catch((err) => {
             console.log("error", err);
