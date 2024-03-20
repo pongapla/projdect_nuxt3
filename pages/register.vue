@@ -90,6 +90,7 @@ const wrapperCol = { span: 24 };
 const api = useApi();
 const useForm = Form.useForm;
 // const authStore = useAuth();
+const useStore = useAuthStore()
 const modelRef = reactive({
     username: "",
     password: "",
@@ -114,14 +115,13 @@ const { resetFields, validate, validateInfos } = useForm(modelRef, rulesRef, {
 const onSubmit = () => {
     validate()
         .then(async () => {
-            // await authStore.register(toRaw(modelRef));
-            console.log(">>>>" + modelRef.username + "-" + modelRef.password);
-            api.register(
-                {
-                    usernam: modelRef.username,
-                    password: modelRef.password,
-                }
-            )
+             await useStore.register(toRaw(modelRef));
+            // api.register(
+            //     {
+            //         username: modelRef.username,
+            //         password: modelRef.password,
+            //     }
+            // )
         })
         .catch((err) => {
             console.log("error", err);

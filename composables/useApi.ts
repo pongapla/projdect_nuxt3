@@ -1,8 +1,20 @@
+import {
+  getProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+} from "./../services/api/product-api.service";
 import { login, register } from "../services/api/auth-api.service";
 
 export const useApi = () => {
-    return {
-        login,
-        register,
-    };
+  return {
+    login,
+    register,
+    getProducts,
+    getProductById,
+    createProduct,
+    updateProduct,
+    deleteProduct,
+  };
 };

@@ -86,12 +86,13 @@
 </template>
 
 <script setup lang="ts">
-import { Form } from "ant-design-vue";
+import { Form } from "ant-design-vue"
 import { useAuthStore } from "../stores/auth.store";
-
+import { useApi } from "../composables/useApi";
 definePageMeta({
     layout: "authen",
 });
+const api = useApi();
 const labelCol = { span: 0 };
 const wrapperCol = { span: 24 };
 const useStore = useAuthStore()
@@ -121,7 +122,11 @@ const { resetFields, validate, validateInfos } = useForm(modelRef, rulesRef, {
 const onSubmit = () => {
     validate()
         .then(async () => {
-            await authStore.login(toRaw(modelRef));
+            // api.login({
+            //     username: modelRef.username,
+            //     password: modelRef.password
+            // });
+            await useStore.login(toRaw(modelRef))
         })
         .catch((err) => {
             console.log("error", err);

@@ -75,18 +75,28 @@ bun run preview
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
 # public
-  ใช้เก็บรูปภาพที่สามารถเข้าถึงได้จาก path ex   ./public/xxxx.jpg 
+
+ใช้เก็บรูปภาพที่สามารถเข้าถึงได้จาก path ex ./public/xxxx.jpg
+
 # assets
-  ใช้เก็บ css รูปภาพ ไม่สามารถเข้าถึงจากภายนอกได้ ex ~/assets/xxxx.jpg
+
+ใช้เก็บ css รูปภาพ ไม่สามารถเข้าถึงจากภายนอกได้ ex ~/assets/xxxx.jpg
+
 # router
-  การใช้ router มีสองวิธี คือ 
-   - const router = userRouter();
-     router.push('path ที่ต้องการ')
-     แบบที่ 2
-     router.push({
-      path: 'path ที่ต้องการ',
-      query: {
-        color: 'red',
-        brand: 'A'
-      }
-     })
+
+การใช้ router มีสองวิธี คือ
+
+- const router = userRouter();
+  router.push('path ที่ต้องการ')
+  แบบที่ 2
+  router.push({
+  path: 'path ที่ต้องการ',
+  query: {
+  color: 'red',
+  brand: 'A'
+  }
+  })
+
+1 การสร้าง โปรเจค ใน pages ให้สร้าง modul ตามทีเราต้องการ
+2 สร้าง services/api ใช้ชื้อตาม modul เช่น user , product
+3 สร้าง stores
