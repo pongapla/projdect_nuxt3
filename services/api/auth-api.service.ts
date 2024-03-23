@@ -15,6 +15,7 @@ export const login = async (loginDto: LoginDto) => {
     },
     body: JSON.stringify(loginDto),
   })) as Promise<LoginResponse>;
+
   return result;
 };
 

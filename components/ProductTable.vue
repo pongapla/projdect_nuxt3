@@ -93,7 +93,7 @@ const columns = [
 
 const productStore = useProductStore();
 const dayjs = useDayjs();
-const formats = userFormat();
+const formats = useFormat();
 const props = defineProps({
     products: {
         type: Array,

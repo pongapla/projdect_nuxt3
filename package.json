@@ -10,11 +10,12 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/devtools": "^1.0.8",
     "@pinia/nuxt": "^0.5.1",
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.4.2",
     "datejs": "^1.0.0-rc3",
-    "nuxt": "^3.10.2",
+    "nuxt": "^3.11.1",
     "pinia": "^2.1.7",
     "sequelize": "^6.37.1",
     "sqlite3": "^5.1.7",

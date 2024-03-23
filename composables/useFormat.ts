@@ -1,5 +1,5 @@
 import { Style } from "./../.nuxt/components.d";
-export const userFormat = () => {
+export const useFormat = () => {
   const toQuantity = (value = 0) => {
     return value.toLocaleString("th-TH", { minimumFractionDigits: 2 });
   };
