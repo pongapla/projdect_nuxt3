@@ -10,9 +10,9 @@
             <hr />
           </h1>
         </div>
-        <div v-if="$route.path.startsWith('/demo/products/')">
+        <div v-if="$route.path.startsWith('/products')">
           <h1>
-            <nuxt-link to="/demo/products">Back to Products Page</nuxt-link>
+            <nuxt-link to="/products">Back to Products Page</nuxt-link>
             <hr />
           </h1>
         </div>

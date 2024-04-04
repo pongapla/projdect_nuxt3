@@ -5,6 +5,7 @@
                 <a-form :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }" class="tw-w-full">
                     <a-row align="middle" justify="center">
                         <a-col :span="16">
+                            {{ modelRef.name }}
                             <a-row align="middle" justify="center" class="tw-w-full" :gutter="[10, 0]">
                                 <a-col :span="24" class="tw-flex tw-justify-center">
                                     <a-tag color="success"
@@ -15,7 +16,7 @@
                                 <a-col :span="24" class="tw-flex tw-justify-center tw-w-full">
                                     <a-form-item label="Name" class="tw-font-medium tw-w-full"
                                         v-bind="validateInfos.name">
-                                        <a-input v-model:value="modelRef.name" @blur="
+                                        <a-input class="tw-h-10" v-model:value="modelRef.name" @blur="
             validate('name', {
                 trigger: 'blur',
             }).catch(() => { })
@@ -25,7 +26,7 @@
                                 <a-col :span="12" class="tw-flex tw-justify-center">
                                     <a-form-item label="Price" class="tw-font-medium tw-w-full"
                                         v-bind="validateInfos.price">
-                                        <a-input v-model:value="modelRef.price" type="number" @blur="
+                                        <a-input class="tw-h-10" v-model:value="modelRef.price" type="number" @blur="
             validate('price', {
                 trigger: 'blur',
             }).catch(() => { })
@@ -35,7 +36,7 @@
                                 <a-col :span="12" class="tw-flex tw-justify-center">
                                     <a-form-item label="Stock" v-bind="validateInfos.stock"
                                         class="tw-font-medium tw-w-full">
-                                        <a-input type="number" v-model:value="modelRef.stock" @blur="
+                                        <a-input class="tw-h-10" type="number" v-model:value="modelRef.stock" @blur="
             validate('stock', {
                 trigger: 'blur',
             }).catch(() => { })
@@ -60,8 +61,7 @@
                                             </div>
                                         </a-upload>
                                         <a-modal :visible="productStore.preview.visible
-            " :title="productStore.preview.title" :footer="null"
-                                            @cancel="productStore.handleCancel">
+            " :title="productStore.preview.title" :footer="null" @cancel="productStore.handleCancel">
                                             <img :src="previewImageUrl!" alt="example" style="width: 100%" />
                                         </a-modal>
                                     </a-form-item>
@@ -69,10 +69,10 @@
                                 <a-col :span="24" class="tw-flex tw-justify-center">
                                     <a-form-item class="tw-w-full">
                                         <a-row justify="end">
-                                            <a-button @click="$router.push('/stock')">Cancel</a-button>
+                                            <a-button type="primary" @click.prevent="onSubmit">Create</a-button>
                                             <a-button class="tw-ml-2" @click="resetFields">Reset</a-button>
-                                            <a-button type="primary" class="tw-ml-2"
-                                                @click.prevent="onSubmit">Create</a-button>
+                                            <a-button class="tw-ml-2"
+                                                @click="$router.push('/stock')">Cancel</a-button>
                                         </a-row>
                                     </a-form-item>
                                 </a-col>
@@ -88,6 +88,7 @@
 <script setup lang="ts">
 import { Form } from "ant-design-vue";
 import type { UploadChangeParam } from "ant-design-vue";
+import { useProductStore } from "../../stores/product.store"
 
 definePageMeta({
     layout: "default",
@@ -168,4 +169,17 @@ const handleUploadChange = (info: UploadChangeParam) => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.ant-input:focus {
+    border-color: #ced8e0 solid 0;
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0px rgba(111, 114, 118, 0.2);
+    box-shadow: 0 0 0 1px rgba(57, 59, 60, 0.2);
+}
+.ant-input:hover {
+    border-color: #ced8e0;
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0px rgba(111, 114, 118, 0.2);
+    box-shadow: 0 0 0 1px rgba(57, 59, 60, 0.2);
+}
+</style>

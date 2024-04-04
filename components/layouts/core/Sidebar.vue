@@ -43,9 +43,9 @@ import {
     StockOutlined,
     TeamOutlined,
     UserOutlined,
+    SettingFilled,
 } from "@ant-design/icons-vue";
-
-import Icon from "@ant-design/icons-vue/lib/components/Icon";
+import { onMounted, ref} from "vue";
 
 const emits = defineEmits(["update:collapsed"]);
 
@@ -55,7 +55,6 @@ const props = defineProps({
         default: false,
     },
 });
-
 const selectedKeys = ref<string[]>(["1"]);
 const route = useRoute();
 
@@ -87,12 +86,15 @@ const menuList = reactive([
         isSub: true,
     },
     {
-        name: "Navigation 4",
-        icon: UserOutlined,
+        name: "Setting",
+        icon: SettingFilled,
         options: [
-            { name: "Option 1", to: "/nav4O1" },
-            { name: "Option 2", to: "/nav4O2" },
-            { name: "Option 3", to: "/nav4O3" },
+            { name: "Users", to: "/setting" },
+            { name: "Products", to: "/products"},
+            { name: "Site", to: "/site" },
+            { name: "Department", to: "/department" },
+            { name: "Section", to: "/section" },
+            { name: "Role", to: "/role"},
         ],
         isSub: true,
     },

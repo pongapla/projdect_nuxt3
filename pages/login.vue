@@ -126,7 +126,7 @@ const onSubmit = () => {
             //     username: modelRef.username,
             //     password: modelRef.password
             // });
-            await useStore.login(toRaw(modelRef))
+          await  useStore.login(toRaw(modelRef))
         })
         .catch((err) => {
             console.log("error", err);
