@@ -11,7 +11,7 @@
         <a-col :span="24" class="ty-my-1">
             <a-col span="24" class="ty-my-1">
                 <a-card class="tw-w-full tw-min-h-[75vh] tw-rounded-lg tw-drop-shadow-md">
-                    <a-row align="middle" justify="center" gutter="[0,10]">
+                    <a-row align="middle" justify="center" :gutter="[0,10]">
                         <a-col :span="24">
                             <a-row justify="space-between" :gutter="[0, 10]">
                                 <a-col :span="8">
@@ -66,9 +66,12 @@ import {
     GiftOutlined,
     PlusCircleFilled,
 } from "@ant-design/icons-vue";
+import { useProductStore } from "../../stores/product.store";
+import { ref, onMounted } from "vue";
 const productStore = useProductStore();
 const { useBreakpoint } = Grid;
 const breakpointState = useBreakpoint();
+
 
 const stockCardList = ref([
     {
