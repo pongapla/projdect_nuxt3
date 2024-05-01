@@ -3,73 +3,79 @@
         <a-col :span="24">
             <a-card class="tw-drop-shadow-md hover:tw-drop-shadow-lg tw-transition-all tw-rounded-lg">
                 <a-form :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }" class="tw-w-full">
-                    <a-row align="middle" justify="center">
+                    <a-row align="center" justify="center">
                         <a-col :span="16">
-                            {{ modelRef.name }}
-                            <a-row align="middle" justify="center" class="tw-w-full" :gutter="[10, 0]">
+                            <a-row align="center" justify="center" class="tw-w-full" :gutter="[10, 0]">
                                 <a-col :span="24" class="tw-flex tw-justify-center">
-                                    <a-tag color="success"
+                                    <a-tag color="warning"
                                         class="tw-font-medium tw-text-xl tw-rounded-lg tw-px-4 tw-mb-4">
-                                        Edit PRODUCT
+                                        EDIT PRODUCT
                                     </a-tag>
                                 </a-col>
                                 <a-col :span="24" class="tw-flex tw-justify-center tw-w-full">
                                     <a-form-item label="Name" class="tw-font-medium tw-w-full"
                                         v-bind="validateInfos.name">
-                                        <a-input class="tw-h-10" v-model="modelRef.name" @blur="
-            validate('name', {
-                trigger: 'blur',
-            }).catch(() => { })
-            " />
+                                        <a-input v-model:value="modelRef.name" @blur="validate('name')" />
                                     </a-form-item>
                                 </a-col>
                                 <a-col :span="12" class="tw-flex tw-justify-center">
                                     <a-form-item label="Price" class="tw-font-medium tw-w-full"
                                         v-bind="validateInfos.price">
-                                        <a-input class="tw-h-10" v-model="modelRef.price" type="number" @blur="
-            validate('price', {
-                trigger: 'blur',
-            }).catch(() => { })
-            " />
+                                        <a-input type="number" v-model:value="modelRef.price"
+                                            @blur="validate('price')" />
                                     </a-form-item>
                                 </a-col>
                                 <a-col :span="12" class="tw-flex tw-justify-center">
-                                    <a-form-item label="Stock" v-bind="validateInfos.stock"
-                                        class="tw-font-medium tw-w-full">
-                                        <a-input class="tw-h-10" type="number" v-model="modelRef.stock" @blur="
-            validate('stock', {
-                trigger: 'blur',
-            }).catch(() => { })
-            " />
+                                    <a-form-item label="Stock" class="tw-font-medium tw-w-full"
+                                        v-bind="validateInfos.stock">
+                                        <a-input type="number" v-model:value="modelRef.stock"
+                                            @blur="validate('stock')" />
                                     </a-form-item>
                                 </a-col>
                                 <a-col :span="24" class="tw-flex tw-justify-center">
                                     <a-form-item label="Image file" class="tw-font-medium tw-w-full"
                                         v-bind="validateInfos.image">
-                                        <a-upload
-                                            v-model="modelRef.image" 
-                                            :max-count="1" 
-                                            name="image"
-                                            list-type="picture-card" 
-                                            class="avatar-uploader" 
-                                            :show-upload-list="true"
-                                            :before-upload="formats.beforeUpload" 
-                                            @change="handleUploadChange" 
-                                            @preview="productStore.handlePreview">
-                                            
+                                        <a-upload v-model="modelRef.image" :max-count="1" name="image"
+                                            list-type="picture-card" class="avatar-uploader" :show-upload-list="true"
+                                            :before-upload="formats.beforeUpload
+                                                " @change="handleUploadChange" @preview="
+                                                productStore.handlePreview
+                                                ">
+                                            <img class="tw-p-1 tw-w-full tw-h-full tw-object-cover tw-rounded-lg"
+                                                alt="Upload" v-if="
+                                                    previewImageUrl &&
+                                                    modelRef.image
+                                                " :src="previewImageUrl" />
+                                            <div v-else>
+                                                <loading-outlined v-if="
+                                                    productStore.isLoading()
+                                                "></loading-outlined>
+                                                <plus-outlined v-else></plus-outlined>
+                                                <div class="ant-upload-text">
+                                                    Upload
+                                                </div>
+                                            </div>
+                                            <a-modal :visible="productStore.preview.visible
+                                                " :title="productStore.preview.title
+                                                    " :footer="null" @cancel="
+                                                    productStore.handleCancel
+                                                    ">
+                                                <img alt="example" style="width: 100%" :src="previewImageUrl!" />
+                                            </a-modal>
                                         </a-upload>
-                                        <a-modal :visible="productStore.preview.visible
-            " :title="productStore.preview.title" :footer="null" @cancel="productStore.handleCancel">
-                                            <img :src="previewImageUrl!" alt="example" style="width: 100%" />
+                                        <a-modal :footer="null">
+                                            <img alt="example" style="width: 100%" />
                                         </a-modal>
                                     </a-form-item>
                                 </a-col>
                                 <a-col :span="24" class="tw-flex tw-justify-center">
                                     <a-form-item class="tw-w-full">
                                         <a-row justify="end">
-                                            <a-button type="primary" @click.prevent="onSubmit">Create</a-button>
-                                            <a-button class="tw-ml-2" @click="resetFields">Reset</a-button>
-                                            <a-button class="tw-ml-2" @click="$router.push('/stock')">Cancel</a-button>
+                                            <a-button @click="$router.push('/stock')">Cancel</a-button>
+
+                                            <a-button :loading="productStore.isLoading()
+                                                " type="primary" class="tw-ml-2"
+                                                @click.prevent="onSubmit">Confirm</a-button>
                                         </a-row>
                                     </a-form-item>
                                 </a-col>
@@ -84,26 +90,37 @@
 
 <script setup lang="ts">
 import { Form } from "ant-design-vue";
-import { useProductStore } from "../../../stores/product.store"
-import { ref, reactive} from "vue"
-import { useFormRule } from "../../../composables/useFormRule";
 import type { UploadChangeParam } from "ant-design-vue/lib/upload/interface";
+import type { TProduct } from "~/types/product.type";
+
 definePageMeta({
     layout: "default",
 });
+const route = useRoute();
+
 const productStore = useProductStore();
+
 const previewImageUrl = ref(null);
-const router = useRouter();
+
 const formats = useFormat();
+
 const useForm = Form.useForm;
+
 const formRule = useFormRule();
+
 const modelRef = reactive({
     name: "",
     price: "",
     stock: "",
     image: null as any,
 });
-const { resetFields, validate, validateInfos } = useForm(modelRef, formRule.rules);
+
+const router = useRouter();
+
+const api = useApi();
+
+const { validate, validateInfos } = useForm(modelRef, formRule.rules);
+
 const handleUploadChange = (info: UploadChangeParam) => {
     // for preview
     const res = productStore.handleChange(info) as any;
@@ -118,8 +135,28 @@ const handleUploadChange = (info: UploadChangeParam) => {
     // for upload
     modelRef.image = formats.convertToFile(info);
 };
+
+const onSubmit = async () => {
+    validate().then(async () => {
+        await productStore.updateProduct(route.params.id as string, {
+            name: modelRef.name,
+            price: Number(modelRef.price) || 0,
+            stock: Number(modelRef.stock) || 0,
+            image: modelRef.image,
+        });
+        router.back();
+    });
+};
+
+onMounted(async () => {
+    const id = route.params.id as string;
+    const result = (await api.getProductById(id)) as TProduct;
+    modelRef.name = result.name;
+    modelRef.price = result.price.toString();
+    modelRef.stock = result.stock.toString();
+    modelRef.image = result.image;
+    previewImageUrl.value = getFullImagePath(result.image) as any;
+});
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
