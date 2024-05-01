@@ -46,19 +46,17 @@
                                 <a-col :span="24" class="tw-flex tw-justify-center">
                                     <a-form-item label="Image file" class="tw-font-medium tw-w-full"
                                         v-bind="validateInfos.image">
-                                        <a-upload v-model="modelRef.image" :max-count="1" name="image"
-                                            list-type="picture-card" class="avatar-uploader" :show-upload-list="true"
-                                            :before-upload="formats.beforeUpload
-            " @change="handleUploadChange" @preview="
-            productStore.handlePreview
-            ">
-                                            <div slot="trigger">
-                                                <!-- <loading-outlined v-if="loading"></loading-outlined>
-                        <plus-outlined v-else></plus-outlined> -->
-                                                <div class="ant-upload-text">
-                                                    Upload
-                                                </div>
-                                            </div>
+                                        <a-upload
+                                            v-model="modelRef.image" 
+                                            :max-count="1" 
+                                            name="image"
+                                            list-type="picture-card" 
+                                            class="avatar-uploader" 
+                                            :show-upload-list="true"
+                                            :before-upload="formats.beforeUpload" 
+                                            @change="handleUploadChange" 
+                                            @preview="productStore.handlePreview">
+                                            
                                         </a-upload>
                                         <a-modal :visible="productStore.preview.visible
             " :title="productStore.preview.title" :footer="null" @cancel="productStore.handleCancel">
@@ -89,13 +87,16 @@ import { Form } from "ant-design-vue";
 import { useProductStore } from "../../../stores/product.store"
 import { ref, reactive} from "vue"
 import { useFormRule } from "../../../composables/useFormRule";
+import type { UploadChangeParam } from "ant-design-vue/lib/upload/interface";
 definePageMeta({
     layout: "default",
 });
-const router = useRouter();
-const useForm = useRule();
-const formRule = useFormRule();
 const productStore = useProductStore();
+const previewImageUrl = ref(null);
+const router = useRouter();
+const formats = useFormat();
+const useForm = Form.useForm;
+const formRule = useFormRule();
 const modelRef = reactive({
     name: "",
     price: "",
@@ -103,6 +104,20 @@ const modelRef = reactive({
     image: null as any,
 });
 const { resetFields, validate, validateInfos } = useForm(modelRef, formRule.rules);
+const handleUploadChange = (info: UploadChangeParam) => {
+    // for preview
+    const res = productStore.handleChange(info) as any;
+    const status = res?.status;
+    if (status == "removed") {
+        modelRef.image = null;
+        previewImageUrl.value = null;
+        return;
+    }
+    previewImageUrl.value = res;
+
+    // for upload
+    modelRef.image = formats.convertToFile(info);
+};
 </script>
 
 <style scoped>
